@@ -97,7 +97,7 @@ jobs:
             npm test
 
   scan-frontend:
-      docker:
+    docker:
       - image: cimg/node:13.8.0
     steps:
       - checkout
