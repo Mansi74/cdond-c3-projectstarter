@@ -1,9 +1,5 @@
 version: 2.1
 
-
-
-
-
 commands:
     install_awscli:
       description: Install aws cli
@@ -204,24 +200,24 @@ jobs:
       - destroy-environment
       # Here's where you will add some code to rollback on failure      
 
-    configure-infrastructure:
-      docker:
-        - image: cimg/base:stable
-      steps:
-        - checkout
-        - install_ansible
-        - add_ssh_keys:
+  configure-infrastructure:
+    docker:
+      - image: cimg/base:stable
+    steps:
+      - checkout
+      - install_ansible
+      - add_ssh_keys:
           fingerprints: ["da:78:7a:a4:93:c7:2f:bf:dd:5a:b7:cb:02:e9:c9:ed"]
-        - attach_workspace:
+      - attach_workspace:
           at: ~/
         
-        - run:
-            name: Configure server
-            command: |
+      - run:
+          name: Configure server
+          command: |
               cd .circleci/ansible
               cat inventory.txt
               ansible-playbook -i inventory.txt configure-server.yml
-        - destroy-environment
+      - destroy-environment
         # Here's where you will add some code to rollback on failure      
 
 #   run-migrations:
